@@ -1,0 +1,49 @@
+
+
+CREATE OR REPLACE FUNCTION Squaare_cube ( Squ IN NUMBER, Cub OUT NUMBER)
+RETURN NUMBER 
+AS
+BEGIN
+Cub := Squ * Squ * Squ;
+RETURN Squ * Squ;
+END;
+
+Declare 
+Var_1 Integer;
+BEGIN 
+select SQUAARE_CUBE(25,Var_1) 
+into Var_1
+from dual;
+END;
+
+set serveroutput on
+DECLARE 
+VAR1 NUMBER;
+VAR2 NUMBER;
+BEGIN
+VAR1 := SQUAARE_CUBE(5,VAR2);
+dbms_output.put_line(VAR1);
+dbms_output.put_line(VAR2);
+END;
+
+
+set serveroutput on
+BEGIN
+DBMS_OUTPUT.PUT_LINE('Hello World');
+END;
+
+
+create table sample (
+total number(10),
+Maths Number(10),
+English Number(10),
+Telugu Number(10)
+);
+
+select * from EMPLOYEE_DETAILS
+
+insert into 
+
+select TOTAL,MATHS,ENGLISH,TELUGU from sample where rank = 4
+
+select TOTAL,MATHS,ENGLISH,TELUGU,rank() over(order by ENGLISH asc),dense_rank() over(order by ENGLISH asc) from sample 

@@ -1,0 +1,40 @@
+------------------ Function Creation----------------------------
+CREATE OR REPLACE FUNCTION INCREMENT_CALCULATION 
+(emp_id employee_details.employee_id%TYPE)
+RETURN NUMBER
+IS  
+EXPR employee_details.employee_exp%TYPE;
+SAL company.salary%TYPE;
+INCREMENTED NUMBER;
+BEGIN 
+select EMPLOYEE_EXP 
+INTO EXPR 
+from EMPLOYEE_DETAILS
+where EMPLOYEE_ID=emp_id;
+select SALARY 
+INTO SAL
+FROM COMPANY
+where EMPLOYEE_ID=emp_id;
+CASE 
+    WHEN EXPR = 1 THEN INCREMENTED := (1.40 * SAL);
+    WHEN EXPR IN (2,3,4) THEN INCREMENTED := (1.30 * SAL);
+    WHEN EXPR IN (5,6,7) THEN INCREMENTED := (1.20 * SAL);
+    WHEN EXPR = 8 THEN INCREMENTED := (1.10 * SAL);
+    ELSE
+    INCREMENTED := SAL;
+    DBMS_OUTPUT.PUT_LINE('Not Eligilble for INCREMENT');
+END CASE;
+RETURN INCREMENTED;
+END INCREMENT_CALCULATION;
+___________________________________________________________________________
+
+--------------------------Function Calling---------------------------------
+SET SERVEROUTPUT ON;
+DECLARE 
+Incr Number;
+BEGIN 
+Incr := INCREMENT_CALCULATION(1003);
+DBMS_OUTPUT.PUT_LINE('The Increment for the Employee is');
+DBMS_OUTPUT.PUT_LINE(Incr);
+END;
+____________________________________________________________________________

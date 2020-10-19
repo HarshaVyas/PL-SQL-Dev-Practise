@@ -1,0 +1,63 @@
+-------------------------------------------------------------------------------------------
+CREATE OR REPLACE PROCEDURE UPDATE_INC 
+(A IN NUMBER, B IN NUMBER,Incr OUT NUMBER)
+AS 
+Max_Employee NUMBER;
+Min_Employee Number;
+NULL_VALUE NUMBER;
+BEGIN 
+Min_Employee := A;
+Max_Employee := B;
+NULL_VALUE :=1;
+WHILE(NULL_VALUE IS NOT NULL)
+LOOP 
+if (Min_Employee > Max_Employee) THEN EXIT;
+ELSE
+Incr := INCREMENT_CALCULATION(Min_Employee);
+INSERT INTO SALARY_INC_VW(EMPLOYEE,HIKE) values(Min_Employee,Incr);
+commit;
+Min_Employee := Min_Employee + 1;
+SELECT  EMPLOYEE_ID
+INTO  NULL_VALUE
+FROM  EMPLOYEE_DETAILS
+WHERE  EMPLOYEE_ID=Min_Employee; 
+END IF;
+END LOOP;
+END UPDATE_INC;
+
+-------------------------------------------------------------------------------------------
+SET SERVEROUTPUT ON;
+DECLARE
+X EMPLOYEE_DETAILS.EMPLOYEE_ID%TYPE;
+Y EMPLOYEE_DETAILS.EMPLOYEE_ID%TYPE;
+Hike NUMBER;
+BEGIN  
+select MIN(EMPLOYEE_ID) INTO X from EMPLOYEE_DETAILS;
+select MAX(EMPLOYEE_ID) INTO Y from EMPLOYEE_DETAILS;
+DBMS_OUTPUT.PUT_LINE(X);
+DBMS_OUTPUT.PUT_LINE(Y);
+UPDATE_INC(X,Y,Hike);
+DBMS_OUTPUT.PUT_LINE('Increment Values Updated in View SALARY_INC_VW');
+END;
+-------------------------------------------------------------------------------------------
+___________________________________________________________________________________________________
+CREATE OR REPLACE PROCEDURE UPDATE_INC 
+AS 
+CURSOR HIKE_CUS IS SELECT EMPLOYEE_ID FROM EMPLOYEE_DETAILS;
+Y NUMBER;
+BEGIN 
+DELETE FROM SALARY_INC_VW; 
+    FOR i in HIKE_CUS
+    LOOP
+    Y := INCREMENT_CALCULATION(i.EMPLOYEE_ID);
+    INSERT INTO SALARY_INC_VW VALUES(i.EMPLOYEE_ID,Y);
+    Commit;
+    END LOOP;
+END UPDATE_INC;
+___________________________________________________________________________________________________
+
+SET SERVEROUTPUT ON;
+BEGIN 
+UPDATE_INC;
+DBMS_OUTPUT.PUT_LINE('Increment Values Updated in View SALARY_INC_VW');
+END;

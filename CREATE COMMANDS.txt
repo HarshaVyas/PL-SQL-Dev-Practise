@@ -1,0 +1,46 @@
+------------------------------------------
+----------CREATED BY HARSHA---------------
+----------Creation of Base Tables---------
+_____________________________________________
+----------EMPLOYEE - MAIN TABLE-----------
+_____________________________________________
+
+CREATE TABLE EMPLOYEE_DETAILS(
+EMPLOYEE_ID NUMBER(10) PRIMARY KEY,
+EMPLOYEE_NAME VARCHAR2(20),
+EMPLOYEE_EXP NUMBER(3),
+COMPANY_NAME VARCHAR2(20),
+EMPLOYEE_AGE NUMBER(3),
+PHONE_NUMBER Number(10) UNIQUE, 
+TIMESTAMP date DEFAULT SYSDATE
+); 
+
+______________________________________________
+---------- COMPANY TABLE------------------
+______________________________________________
+
+CREATE TABLE Company (
+COMPANY_NAME VARCHAR2(20),
+EMPLOYEE_ID NUMBER(10) REFERENCES EMPLOYEE_DETAILS(EMPLOYEE_ID),
+SALARY NUMBER(10),
+WORK_SHIFT VARCHAR2(1) DEFAULT 'M' CHECK (WORK_SHIFT='M' or WORK_SHIFT='A'or WORK_SHIFT='N'),
+Location VARCHAR2(10),
+DATE_OF_JOINING date 
+);
+
+______________________________________________
+---------BRANCH TABLE-----------------------
+______________________________________________
+CREATE TABLE BRANCH(
+
+) 
+
+____________________________________________________
+-----------Creating Emloyee ID SEQUENCE-----------
+____________________________________________________
+
+CREATE SEQUENCE EMPLYOEE_ID 
+START WITH 1000
+INCREMENT BY 1
+NOCACHE
+NOCYCLE;

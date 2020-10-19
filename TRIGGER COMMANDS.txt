@@ -1,0 +1,48 @@
+_____________________________________________________________
+-------------------------------------------------------------
+CREATE OR REPLACE TRIGGER EMP_BEF_INS
+before insert on employee_details 
+begin
+dbms_output.put_line('Before Insert Trigger Fired');
+END;
+
+------------------------------------------------------------
+------------------------------------------------------------
+CREATE OR REPLACE TRIGGER EMP_AFTER_INS
+AFTER insert on employee_details 
+begin
+dbms_output.put_line('After Insert Trigger Fired');
+END;
+------------------------------------------------------------
+------------------------------------------------------------
+CREATE OR REPLACE TRIGGER EMP_BEF_UPDATE
+before UPDATE on employee_details 
+begin
+dbms_output.put_line('Before Update Trigger Fired');
+END;
+------------------------------------------------------------
+------------------------------------------------------------
+CREATE OR REPLACE TRIGGER EMP_AFTER_UPDATE
+AFTER UPDATE on employee_details 
+begin
+dbms_output.put_line('After Update Trigger Fired');
+END;
+
+------------------------------------------------------------
+------------------------------------------------------------
+
+CREATE OR REPLACE TRIGGER EMP_BEF_DELETE
+before DELETE on employee_details 
+begin
+dbms_output.put_line('Before DELETE Trigger Fired');
+END;
+
+------------------------------------------------------------
+------------------------------------------------------------
+
+CREATE OR REPLACE TRIGGER EMP_AFTER_DELETE
+AFTER DELETE on employee_details 
+begin
+dbms_output.put_line('After Insert Trigger Fired');
+END;
+____________________________________________________________
